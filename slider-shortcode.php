@@ -200,11 +200,11 @@ Class UBC_Slider {
 	            'height'            => '330',
 	            'category'          => 0,
 	            'lookandfeel'       => 'standard',
-	            'maxslides'         => UBC_Collab_Theme_Options::get( 'slider-number-of-slides' ),
+	            'maxslides'         => 1,
 	            'timeout'           => null,
 	            'speed'             => null,
 	            'effect'            => null,
-                'slider_margin'     => UBC_Collab_Theme_Options::get( 'slider-remove-margin' ),
+                'slider_margin'     => 'false',
 	            'read_more_text'    => 'Read more',
 	            'read_more_check'   => false,
 	            'order_by'          => null,
@@ -302,7 +302,7 @@ Class UBC_Slider {
     	}
 
         // if admin has selected to remove the margin on slider, add a class
-        if(self::$slider_attr['slider_margin']){
+        if(self::$slider_attr['slider_margin'] == 'true'){
             $slider_class .= ' expanded-slider';
         }
         return $slider_class;
