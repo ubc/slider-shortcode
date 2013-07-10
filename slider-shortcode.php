@@ -343,12 +343,16 @@ Class UBC_Slider {
      * @return void
      */
     function get_template_slider_size() {
-
+        if(!empty(self::$page_layout))
+            $current_layout = self::$page_layout;
+        else
+            $current_layout = UBC_Collab_Theme_Options::get('layout');
+        
         $image_size = array(
             'width'  => '',
             'height' => ''
         );
-        switch (self::$page_layout){
+        switch ($current_layout){
             //span12
             case 'l1-column':
                 $image_size['width'] = '1200';
