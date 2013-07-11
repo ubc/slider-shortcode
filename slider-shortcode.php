@@ -362,9 +362,7 @@ Class UBC_Slider {
     function slider_items() {
 
     	$query_attr = array();
-    	if( !in_array( self::$slider_attr['category'], array( 0, 'all', '0') ) ){
-    		$query_attr['cat'] 		= self::$slider_attr['category'];
-        }
+    	$query_attr['cat'] = (is_numeric( self::$slider_attr['category'])) ? self::$slider_attr['category'] : get_cat_ID(self::$slider_attr['category']);
 
     	$query_attr['posts_per_page'] = self::$slider_attr['maxslides'];
 
