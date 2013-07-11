@@ -39,3 +39,7 @@ Parameter list:
 Usage example with default values:
 
 [slider height='330' category='0' slider_margin='false' lookandfeel='standard' maxslides='10' read_more_check='false' read_more_text='Read more' remove_link_to='false']
+
+Note:
+
+The width of the slider is dependent on the number of columns in the selected layout of the page.
