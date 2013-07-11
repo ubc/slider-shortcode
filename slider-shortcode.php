@@ -136,16 +136,16 @@ Class UBC_Slider {
 	            'height'            => '330',
 	            'category'          => 0,
 	            'lookandfeel'       => 'standard',
-	            'maxslides'         => 1,
+	            'maxslides'         => 10,
 	            'timeout'           => null,
 	            'speed'             => null,
 	            'effect'            => null,
                 'slider_margin'     => 'false',
 	            'read_more_text'    => 'Read more',
-	            'read_more_check'   => false,
+	            'read_more_check'   => 'false',
 	            'order_by'          => null,
 	            'order'             => null,
-	            'remove_link_to'    => null
+	            'remove_link_to'    => 'true'
             );
             return $spotlight_atts;
     }
@@ -380,9 +380,9 @@ Class UBC_Slider {
                                                             'controlNav' => 'thumbnails', );
 
                                 $html .=  '<li data-thumb="'.self::get_slider_image_src(self::get_slider_image(array( 'width'=>193, 'height'=>86) )).'">';
-                                $html .=       '<a class="slider-image" href="'.get_permalink().'" title="'.get_the_title().'">';
+                                $html .=       ('false' == self::$slider_attr['remove_link_to']) ? '<a class="slider-image" href="'.get_permalink().'" title="'.get_the_title().'">' : '';
                                 $html .=            self::get_slider_image();
-                                $html .=       '</a>';
+                                $html .=       ('false' == self::$slider_attr['remove_link_to']) ? '</a>' : '';
                                 $html .= '</li>';
                             break;
 
@@ -394,20 +394,21 @@ Class UBC_Slider {
                                                            'after' => 'after_slider_counter',);
 
 
-                            $html .= '<li class="flex-slide"><a class="slider-image" href="'.get_permalink().'" title="'.get_the_title().'">';
+                            $html .= '<li class="flex-slide">';
+                                $html .= ('false' == self::$slider_attr['remove_link_to']) ? '<a class="slider-image" href="'.get_permalink().'" title="'.get_the_title().'">' : '';
 
                                 $html .= self::get_slider_image();
 
-                                $html .= '</a>';
+                                $html .= ('false' == self::$slider_attr['remove_link_to']) ? '</a>' : '';
                                 $html .= self::get_slider_caption();
 
                                 $html .= '<div class="carousel-caption">';
                                 $html .= '<h4><a href="'.get_permalink().'"> '.get_the_title().'</a></h4>';
                                 $html .= '<p>'.get_the_excerpt();
-                                $read_more = ( empty( self::$slider_attr['read_more_text'] ) ? 'Read More' : self::$slider_attr['read_more_text'] );
+                                $read_more = ( empty( self::$slider_attr['read_more_text'] ) ? 'Read more' : self::$slider_attr['read_more_text'] );
 
-                                if( self::$slider_attr['read_more_check'] )
-                                        $html .= ' <a href="'.get_permalink().'" title="Read More">'.$read_more.'</a></p>';
+                                if( 'true' == self::$slider_attr['read_more_check'] )
+                                        $html .= ' <a href="'.get_permalink().'" title="Read more">'.$read_more.'</a></p>';
 
                                 $html .= '</div>';
                                 $html .= '</li>';
@@ -424,20 +425,21 @@ Class UBC_Slider {
                                                              'after' => 'after_slider_counter',);
 
 
-                            $html .= '<li class="flex-slide"><a class="slider-image" href="'.get_permalink().'" title="'.get_the_title().'">';
+                            $html .= '<li class="flex-slide">';
+                                $html .= ('false' == self::$slider_attr['remove_link_to']) ? '<a class="slider-image" href="'.get_permalink().'" title="'.get_the_title().'">' : '';
 
                                 $html .= self::get_slider_image();
 
-                                $html .= '</a>';
+                                $html .= ('false' == self::$slider_attr['remove_link_to']) ? '</a>': '';
                                 $html .= self::get_slider_caption();
 
                                 $html .= '<div class="carousel-caption">';
                                 $html .= '<h4><a href="'.get_permalink().'"> '.get_the_title().'</a></h4>';
                                 $html .= '<p>'.get_the_excerpt();
-                                $read_more = ( empty( self::$slider_attr['read_more_text'] ) ? 'Read More' : self::$slider_attr['read_more_text'] );
+                                $read_more = ( empty( self::$slider_attr['read_more_text'] )) ? 'Read more' : self::$slider_attr['read_more_text'];
 
-                                if( self::$slider_attr['read_more_check'] )
-                                        $html .= ' <a href="'.get_permalink().'" title="Read More">'.$read_more.'</a></p>';
+                                if( 'true' == self::$slider_attr['read_more_check'] )
+                                        $html .= ' <a href="'.get_permalink().'" title="Read more">'.$read_more.'</a></p>';
 
                                 $html .= '</div>';
                                 $html .= '</li>';
