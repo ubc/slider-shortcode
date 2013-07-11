@@ -40,9 +40,6 @@ Class UBC_Slider {
         add_action( 'init', array(__CLASS__, 'register_scripts' ) );
         add_action( 'wp_footer', array(__CLASS__, 'print_script' ) );
 
-        add_filter( 'ubc_collab_theme_options_validate', array( __CLASS__, 'validate' ), 10, 2 );
-		add_filter( 'ubc_collab_default_theme_options', array( __CLASS__, 'default_options' ), 10, 1 );
-
 		add_shortcode( 'slider', array(__CLASS__, 'shortcode' ) );
     }
 
@@ -82,33 +79,6 @@ Class UBC_Slider {
 	}
 
 
-    /**
-	 * default_options function.
-	 *
-	 * @access public
-	 * @param mixed $options
-	 * @return void
-	 */
-	function default_options( $options ){
-		if ( !is_array( $options ) ) {
-			$options = array();
-		}
-
-		$defaults = array(
-			'slider-option'                  => 'standard',
-			'slider-category'                => 0,
-			'slider-number-of-slides'        => '1',
-			'slider-readmore-button-checked' => 0,
-            'slider-remove-margin'           => 0,
-			'slider-readmore-button-text'    => 'Read More',
-            'slider-image-size-height'       => ''
-		);
-
-		$options = array_merge( $options, $defaults );
-
-		return $options;
-	}
-
 	/**
      * default_slider_options function.
      * Helper function to produce the Label and the Value for the layout options
@@ -142,40 +112,6 @@ Class UBC_Slider {
 		    );
 		}
 		return $default_number_of_slides;
-	}
-
-
-
-	/**
-	* validate function.
-	*
-	* @access public
-	* @param mixed $output
-	* @param mixed $input
-	* @return void
-	*/
-	function validate( $output, $input ){
-
-		// SLIDER
-		// what slider is selected
-		$output['slider-option'] = ( array_keys( self::default_slider_options(), $input['slider-option'] )? $input['slider-option'] : 'standard' );
-
-		// what category is selected
-		$output['slider-category'] = ( is_numeric( $input['slider-category'] )  ?  (int)$input['slider-category'] : 'all' );
-
-		$output['slider-readmore-button-checked'] = ( $input['slider-readmore-button-checked'] ? 1 : 0 );
-
-                $output['slider-remove-margin'] = ( $input['slider-remove-margin'] ? 1 : 0 );
-
-		$output['slider-readmore-button-text'] = UBC_Collab_Theme_Options::validate_text( $input['slider-readmore-button-text'], '' );
-
-                $output['slider-image-size-height'] = UBC_Collab_Theme_Options::validate_text( $input['slider-image-size-height'], '' );
-
-
-		$output['slider-number-of-slides'] = ( ( (int) $input['slider-number-of-slides'] >= 1) && ((int) $input['slider-number-of-slides'] <= 20)? $input['slider-number-of-slides'] : 1 );
-
-		return $output;
-
 	}
 
 
@@ -345,7 +281,7 @@ Class UBC_Slider {
     function get_template_slider_size() {
         if(!empty(self::$page_layout))
             $current_layout = self::$page_layout;
-        else
+        else if (class_exists(UBC_Collab_Theme_Options))
             $current_layout = UBC_Collab_Theme_Options::get('layout');
         
         $image_size = array(
@@ -371,8 +307,8 @@ Class UBC_Slider {
                 $image_size['height'] = ( empty( self::$slider_attr['height'] ) ? '350' : self::$slider_attr['height'] );
                 break;
             default:
-                $image_size['width'] = '';
-                $image_size['height'] = '';
+                $image_size['width'] = '200';
+                $image_size['height'] = '100';
                 break;
         }
         return $image_size;
@@ -426,8 +362,9 @@ Class UBC_Slider {
     function slider_items() {
 
     	$query_attr = array();
-    	if( !in_array( self::$slider_attr['category'], array( 0, 'all', '0') ) )
+    	if( !in_array( self::$slider_attr['category'], array( 0, 'all', '0') ) ){
     		$query_attr['cat'] 		= self::$slider_attr['category'];
+        }
 
     	$query_attr['posts_per_page'] = self::$slider_attr['maxslides'];
 
