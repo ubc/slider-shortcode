@@ -2,7 +2,9 @@ slider-shortcode
 ================
 
 Developer: Amir Entezaralmahdi - UBC Arts ISIT
+
 Requirements: Works only on UBC Collab theme
+
 Version: 1.0
 
 Description:
