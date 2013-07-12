@@ -138,7 +138,7 @@ Class UBC_Slider {
 	            'lookandfeel'       => 'standard',
 	            'maxslides'         => 10,
 	            'timeout'           => null,
-	            'speed'             => null,
+	            'speed'             => 7000,
 	            'effect'            => null,
                 'slider_margin'     => 'false',
 	            'read_more_text'    => 'Read more',
@@ -377,7 +377,8 @@ Class UBC_Slider {
                         /* HTML code for Multi Slider*/
                         case 'multi':
                             self::$slider_options = array(  'animation'  => 'slide',
-                                                            'controlNav' => 'thumbnails', );
+                                                            'controlNav' => 'thumbnails',
+                                                            'slideshowSpeed' => self::$slider_attr['speed'],);
 
                                 $html .=  '<li data-thumb="'.self::get_slider_image_src(self::get_slider_image(array( 'width'=>193, 'height'=>86) )).'">';
                                 $html .=       ('false' == self::$slider_attr['remove_link_to']) ? '<a class="slider-image" href="'.get_permalink().'" title="'.get_the_title().'">' : '';
@@ -391,7 +392,8 @@ Class UBC_Slider {
                             self::$slider_options = array( 'pausePlay' => '',
                                                            'controlNav' => 1,
                                                            'start' => 'start_slider_counter',
-                                                           'after' => 'after_slider_counter',);
+                                                           'after' => 'after_slider_counter',
+                                                           'slideshowSpeed' => self::$slider_attr['speed'],);
 
 
                             $html .= '<li class="flex-slide">';
@@ -422,7 +424,8 @@ Class UBC_Slider {
                             self::$slider_options = array( 'pausePlay' => 1,
                                                             'controlNav' => '',
                                                              'start' => 'start_slider_counter',
-                                                             'after' => 'after_slider_counter',);
+                                                             'after' => 'after_slider_counter',
+                                                             'slideshowSpeed' => self::$slider_attr['speed'],);
 
 
                             $html .= '<li class="flex-slide">';
